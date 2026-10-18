@@ -3,134 +3,142 @@ import styled from "styled-components";
 import { Foot } from "./foot";
 
 import { NavLink } from "react-router-dom";
+
+
 const All = styled.div`
   font-family: "Montserrat", sans-serif;
-  height: 90vh;
   margin-top: 40px;
+  padding-bottom: 30px;
   background-color: rgb(245, 243, 243);
-border-bottom:1px solid rgb(190, 188, 188);
-  `;
+  border-bottom: 1px solid rgb(190, 188, 188);
+`;
 
 const Wrap = styled.div`
-  width: 75%;
+  width: 90%;
   color: rgb(54, 52, 52);
   margin: auto;
-  display: flex;
-  justify-content: Space-between;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+    & > *:last-child { grid-column: 1 / -1; }
+  }
 `;
 
 const Flex = styled.div`
-  padding-top: 50px;
-  display: Flex;
+  padding: 30px 0 10px;
+  display: flex;
   text-align: center;
-  height: 100px;
   flex-direction: column;
-  p {
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
-  h1 {
-    font-size: 18px;
-    margin-bottom: -5px;
-    font-weight: 500;
-  }
+  align-items: center;
+
+  p { font-size: 12px; margin: 0 0 10px; }
+  h1 { font-size: 18px; margin: 8px 0 6px; font-weight: 500; }
+  i { font-size: 30px; color: rgb(68, 66, 66); }
   i:hover {
     transition: 0.4s;
     color: rgb(247, 100, 42);
     transform: translateY(-10px);
   }
-  i {
-    font-size: 30px;
-    color: rgb(68, 66, 66);
+
+  @media (max-width: 600px) {
+    padding-top: 15px;
+    h1 { font-size: 15px; }
+    i { font-size: 26px; }
   }
 `;
+
 const Mine = styled.div`
   width: 95%;
   margin: auto;
-  display: Flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1.3fr;
+  gap: 30px;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
 `;
+
 const Contact = styled.div`
-  height: 200px;
-  width: 320px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 12px;
+
   span {
     font-size: 25px;
     color: rgb(247, 100, 42);
     font-weight: 500;
-    margin: 10px 0px;
   }
-  h1,
-  h2 {
+  h1, h2 {
     font-size: 20px;
     letter-spacing: 0.4px;
     color: rgb(72, 72, 71);
+    margin: 0;
   }
-  p {
-    font-size: 14px;
-  }
-  margin-right: 10px;
-  a {
-    text-decoration: none;
-    color: rgb(72, 72, 71);
-  }
-  a:hover {
-    color: rgb(247, 100, 42);
-    transition: 0.3s;
-  }
+  p { font-size: 14px; margin: 0; }
+  a { text-decoration: none; color: rgb(72, 72, 71); }
+  a:hover { color: rgb(247, 100, 42); transition: 0.3s; }
 `;
+
 const Contacts = styled.div`
-  height: 260px;
-  width: 240px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 10px;
+
   h1 {
     font-size: 20px;
     letter-spacing: 0.4px;
     color: rgb(72, 72, 71);
+    margin: 0 0 5px;
   }
-  &:nth-of-type(4) {
-    width: 320px;
+  input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px;
+    outline: none;
+    letter-spacing: 0.5px;
   }
-    input{
-    height:40px;
-    padding:10px;
-    outline:none;
-    letter-spacing:0.5px;
-    margin-bottom:10px;
-    }
-
-    button{
-    width:100px;
-    cursor:pointer;
-    background-color:rgb(239, 28, 70);
-    color:white;
-    font-weight:600;
-    padding:7px;
-    border:1px solid rgb(239,28,70);
-    letter-spacing:0.5px;
-    border-radius:5px;
-    }
-    button:hover{
-    color:rgb(239,28,70);
-    background-color:white;
-    transition:0.3s;
-    }
-p{
-font-weight:300;
-color:rgb(72, 72, 71)
-}
-  .combine{
-  display:flex;
-  justify-content:space-between;}
-
-  .combine p{
-  margin-left:10px;
+  button {
+    width: 100px;
+    cursor: pointer;
+    background-color: rgb(239, 28, 70);
+    color: white;
+    font-weight: 600;
+    padding: 7px;
+    border: 1px solid rgb(239, 28, 70);
+    letter-spacing: 0.5px;
+    border-radius: 5px;
+  }
+  button:hover {
+    color: rgb(239, 28, 70);
+    background-color: white;
+    transition: 0.3s;
+  }
+  p {
+    font-weight: 300;
+    color: rgb(72, 72, 71);
+    margin: 0;
+  }
+  .combine {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
   }
 `;
+
+
+
 const StyledLink = styled(NavLink)`
   font-weight: 300;
   color: rgb(72, 72, 71);
@@ -148,7 +156,7 @@ const Footer = () => {
     <>
       <All>
         <Wrap>
-          <br />
+          
           <Flex>
             <i className="fa-solid fa-truck-fast"></i>
             <h1>Free Shipping</h1>
@@ -179,7 +187,7 @@ const Footer = () => {
             <p>Contact us Anytime</p>
           </Flex>
         </Wrap>
-        <br />
+        
         <hr />
         <br />
         <br />
