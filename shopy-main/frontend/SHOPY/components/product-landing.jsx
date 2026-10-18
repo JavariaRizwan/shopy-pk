@@ -21,6 +21,17 @@ const All = styled.div`
     font-weight: 600;
     margin-top: 100px;
   }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    margin: 20px auto;
+    min-height: auto;
+
+    h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+  }
 `;
 
 const First = styled.div`
@@ -30,8 +41,8 @@ const First = styled.div`
   flex-direction: column;
 
   .thumb {
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     cursor: pointer;
     overflow: hidden;
 
@@ -39,13 +50,26 @@ const First = styled.div`
       width: 100%;
       height: 100%;
       object-fit: cover;
-          border-radius:10px;
-
+      border-radius: 10px;
       transition: 0.3s ease;
     }
 
     &:hover img {
       opacity: 0.7;
+    }
+  }
+
+  @media (max-width: 900px) {
+    order: 2;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+
+    .thumb {
+      width: 80px;
+      height: 80px;
+      aspect-ratio: auto;
     }
   }
 `;
@@ -57,7 +81,7 @@ const Left = styled.div`
     width: 85%;
     max-height: 600px;
     margin: auto;
-    border-radius:10px;
+    border-radius: 10px;
     overflow: hidden;
   }
 
@@ -67,6 +91,21 @@ const Left = styled.div`
     object-fit: contain;
     border-radius: 5px;
     cursor: zoom-in;
+  }
+
+  @media (max-width: 900px) {
+    order: 1;
+    width: 100%;
+
+    .ing {
+      width: 100%;
+      max-height: 420px;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 420px;
+    }
   }
 `;
 
@@ -139,6 +178,25 @@ const Right = styled.div`
       height: 40px;
       outline: none;
       font-size: 17px;
+    }
+  }
+      @media (max-width: 900px) {
+    order: 3;
+    width: 100%;
+    padding-left: 0;
+
+    p { margin: 12px 0; }
+    del, span { font-size: 18px; }
+
+    .both {
+      margin-top: 15px;
+
+      input { width: 60px; }
+      button {
+        flex: 1;
+        margin-left: 0;
+        height: 42px;
+      }
     }
   }
 `;
@@ -218,7 +276,7 @@ if(!product){
           Brands: <span>{product.p_brand?.b_name}</span>
         </p>
         <p>
-          <del>₹2450</del>
+          <del>Rs 2450</del>
           <span>{product.price}</span>
           <div className="right">
             Available In Stock: <em>{product.quantity} Items</em>
