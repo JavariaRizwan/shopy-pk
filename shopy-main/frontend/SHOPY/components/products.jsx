@@ -502,7 +502,7 @@ export const Latest = () => {
 
       <All>
         <h1>Latest Products</h1>
-        <Nav to="/products_per_category">
+        <Nav to="/all-products">
           View All <i className="fa-solid fa-arrow-right-long"></i>
         </Nav>
       </All>
