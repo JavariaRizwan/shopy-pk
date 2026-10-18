@@ -466,7 +466,7 @@ const filteredProducts =
               <StyledNavLink to={`/productLanding/${item._id}`}>
                 <h3>{item.p_name.length >30 ? item.p_name.slice(0, 30) + "..." : item.p_name}</h3>
               </StyledNavLink>
-              <p>{item.price}</p>
+              <p>Rs {item.price}</p>
               <button onClick={()=>{addToCart(item);  window.dispatchEvent(new Event("storage"));}}>
                 <i className="fa-solid fa-cart-shopping"></i> Add to Cart
               </button>
