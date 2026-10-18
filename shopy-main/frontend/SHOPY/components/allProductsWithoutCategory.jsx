@@ -8,40 +8,32 @@ import { addToCart } from "../allFunctionsJS/cartFunctions";
 
 // =================== Styled Components ===================
 
+
 const Comb = styled.div`
   padding-top: 20px;
   width: 95%;
   margin: auto;
   font-family: "Montserrat", sans-serif;
   min-height: 90vh;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const One = styled.div`
-  width: 20%;
-  height: 90vh;
 `;
 
 const CardScroll = styled.div`
-  width: 75%;
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
   gap: 20px;
-  overflow-x: hidden;
 
   .first {
-    height: 45px;
+    grid-column: 1 / -1;
+    box-sizing: border-box;
+    min-height: 45px;
     width: 100%;
     display: flex;
-    align-content: center;
     justify-content: space-between;
+    align-items: center;
     background-color: rgb(241, 237, 237);
     border-radius: 5px;
-    border: none;
-    align-items: center;
-    padding: 0 10px;
+    padding: 5px 10px;
   }
 
   .to p {
@@ -51,17 +43,14 @@ const CardScroll = styled.div`
   }
 
   .on {
-    width: 10%;
     display: flex;
     align-items: center;
-    padding-left: 20px;
+    gap: 15px;
 
     i {
       font-size: 20px;
       cursor: pointer;
-      margin-right: 15px;
     }
-
     i:hover {
       color: rgb(247, 100, 42);
       transition: 0.4s;
@@ -71,17 +60,36 @@ const CardScroll = styled.div`
   .btn {
     width: 35%;
   }
+
+  @media (max-width: 900px) {
+    .first {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 10px;
+    }
+    .on { display: none; }
+    .to p { font-size: 15px; line-height: 1.4; }
+    .btn { width: 100%; }
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
 `;
 
 const Cards = styled.div`
+  box-sizing: border-box;
   height: 340px;
-  width: 170px;
+  width: 100%;
   background-color: white;
   border-radius: 5px;
   padding: 0px 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.2);
   position: relative;
+  overflow: hidden;
   transition: 0.2s;
   cursor: pointer;
 
@@ -95,17 +103,11 @@ const Cards = styled.div`
     left: 0;
     transition: opacity 0.3s ease;
   }
+  .hover-img { opacity: 0; }
 
-  .hover-img {
-    opacity: 0;
-  }
-
-  &:hover .hover-img {
-    opacity: 1;
-  }
-
-  &:hover .main-img {
-    opacity: 0;
+  @media (hover: hover) {
+    &:hover .hover-img { opacity: 1; }
+    &:hover .main-img { opacity: 0; }
   }
 
   p {
@@ -113,10 +115,7 @@ const Cards = styled.div`
     font-weight: bold;
     font-size: 16px;
   }
-
-  i {
-    color: #f2672a;
-  }
+  i { color: #f2672a; }
 
   button {
     cursor: pointer;
@@ -130,15 +129,11 @@ const Cards = styled.div`
     letter-spacing: 0.5px;
     margin: auto;
   }
-
   button:hover {
     background-color: #f2672a;
     color: white;
   }
-
-  button:hover i {
-    color: white;
-  }
+  button:hover i { color: white; }
 
   h3 {
     font-size: 16px;
@@ -147,12 +142,23 @@ const Cards = styled.div`
     margin-bottom: 5px;
     height: 32px;
   }
+  h3:hover { color: rgb(253, 102, 37); }
 
-  h3:hover {
-    color: rgb(253, 102, 37);
+  @media (max-width: 600px) {
+    height: 310px;
+    padding: 0 6px;
+
+    .main-img,
+    .hover-img { height: 170px; }
+
+    h3 {
+      margin-top: 180px;
+      font-size: 13px;
+    }
+    p { font-size: 14px; }
+    button { font-size: 12px; }
   }
 `;
-
 
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
@@ -165,9 +171,13 @@ const StyledNavLink = styled(NavLink)`
     margin-bottom: 5px;
     height: 32px;
   }
+  h3:hover { color: rgb(253, 102, 37); }
 
-  h3:hover {
-    color: rgb(253, 102, 37);
+  @media (max-width: 600px) {
+    h3 {
+      margin-top: 180px;
+      font-size: 13px;
+    }
   }
 `;
 
@@ -179,13 +189,22 @@ const SortContainer = styled.div`
 
 const Label = styled.label`
   font-size: 14px;
+  white-space: nowrap;
 `;
 
 const Select = styled.select`
+  flex: 1;
+  min-width: 0;
   padding: 5px 10px;
   border-radius: 4px;
   border: 1px solid #ccc;
 `;
+
+const One = styled.div`
+  width: 20%;
+  height: 90vh;
+`;
+
 
 // =================== Component ===================
 
@@ -225,7 +244,6 @@ const CompleteProducts = () => {
 
   return (
     <Comb>
-      <One>{/* Optional sidebar content */}</One>
 
 
       <CardScroll ref={cardScrollRef}>
