@@ -19,31 +19,48 @@ const slideUp = keyframes`
 
 const One = styled.div`
   font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
   width: 90%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   height: 50px;
-  line-height: 50px;
   padding: 0px 40px;
   display: flex;
+  align-items: center;
+  gap: 15px;
   margin: auto;
   animation: ${slideUp} 0.5s ease-out;
-  justify-content: space-between;
   position: relative;
 
   p {
     margin: 0;
-    display: flex;
-    align-items: center;
-    height: 50px;
+    margin-left: auto;
+    flex: 0 0 auto;
+    white-space: nowrap;
     font-size: 14px;
     color: #333;
   }
+
+  @media (max-width: 900px) {
+    width: 95%;
+    padding: 0 10px;
+    p { display: none; }
+  }
 `;
-const DropdownWrapper = styled.div`
-  position: relative;
-  display: inline-block;
+
+const Scroller = styled.div`
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar { display: none; }
 `;
+
 const Link = styled(NavLink)`
+  flex: 0 0 auto;
+  white-space: nowrap;
   background: transparent;
   cursor: pointer;
   border: none;
@@ -60,6 +77,41 @@ const Link = styled(NavLink)`
   }
 `;
 
+const Dropdown = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 200px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background-color: #fff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  display: ${({ $show }) => ($show ? "block" : "none")};
+  animation: ${slideUp} 0.3s ease-out;
+  z-index: 100;
+  text-align: left;
+
+  a {
+    text-align: center;
+    display: block;
+    line-height: 3;
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: #f5f5f5;
+      color: #f2672a;
+    }
+  }
+`;
+
+const DropdownWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
 const Button = styled.button.attrs({ className: "main-category-btn" })`
   padding: 0px 5px;
   font-size: 16px;
@@ -73,34 +125,6 @@ const Button = styled.button.attrs({ className: "main-category-btn" })`
   }
 `;
 
-const Dropdown = styled.div`
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 200px;
-  background-color: #fff;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  display: ${({ show }) => (show ? "block" : "none")};
-  animation: ${slideUp} 0.3s ease-out;
-  z-index: 100;
-  flex-direction: column;
-  text-align: left;
-
-  a {
-    text-align:center;
-    display: block;
-    line-height:3;
-    color: #333;
-    font-weight: 600;
-    font-size: 14px;
-    text-decoration: none;
-
-    &:hover {
-      background-color: #f5f5f5;
-      color: #f2672a;
-    }
-  }
-`;
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -143,41 +167,39 @@ const Categories = () => {
 }, []);
 
   return (
-    <One>
-      
-        <DropdownWrapper
+<One>
+  <DropdownWrapper
     onMouseEnter={() => setShowDropdown(true)}
     onMouseLeave={() => setShowDropdown(false)}
   >
+    <Button className="main-category-btn" onClick={() => setShowDropdown(true)}>
+      SHOP BY CATEGORIES <i className="fa-solid fa-caret-down"></i>
+    </Button>
 
-        <Button className="main-category-btn">
-          SHOP BY CATEGORIES <i className="fa-solid fa-caret-down"></i>
-        </Button>
-
-        <Dropdown show={showDropdown}>
-          {categories.map((cat) => (
-            <NavLink
-              key={cat._id}
-              to={`/products_per_category/${cat._id}`}
-              onClick={() => setShowDropdown(false)}
-            >
-              {cat.c_name}
-            </NavLink>
-          ))}
-    
-        </Dropdown>
-      
-      </DropdownWrapper>
-    
-
-      <Link to="/all-products">Home</Link>
+    <Dropdown $show={showDropdown}>
       {categories.map((cat) => (
-        <Link key={cat._id} to={`/products_per_category/${cat._id}`}>
+        <NavLink
+          key={cat._id}
+          to={`/products_per_category/${cat._id}`}
+          onClick={() => setShowDropdown(false)}
+        >
           {cat.c_name}
-        </Link>
+        </NavLink>
       ))}
-      <p>Free International Delivery</p>
-    </One>
+    </Dropdown>
+  </DropdownWrapper>
+
+  <Scroller>
+    <Link to="/all-products">Home</Link>
+    {categories.map((cat) => (
+      <Link key={cat._id} to={`/products_per_category/${cat._id}`}>
+        {cat.c_name}
+      </Link>
+    ))}
+  </Scroller>
+
+  <p>Free International Delivery</p>
+</One>
   );
 };
 
