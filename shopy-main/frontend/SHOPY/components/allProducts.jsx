@@ -9,33 +9,22 @@ const Comb = styled.div`
   margin: auto;
   font-family: "Montserrat", sans-serif;
   min-height: 90vh;
-  display: flex;
-  justify-content: space-between;
 `;
 
-// Sidebar
-const One = styled.div`
-  width: 20%;
-  height: 90vh;
-`;
-
-// Main Content
 const Two = styled.div`
-  width: 75%;
-margin-top:20px;
+  width: 100%;
+  margin-top: 20px;
+
   .first {
-    height: 45px;
-    width: 90%;
-    
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 45px;
     display: flex;
-    align-content: center;
     justify-content: space-between;
-    
-    background-color: rgb(241, 237, 237);
-    border-radius:5px;
-    border:none;
     align-items: center;
-    padding: 0 10px;
+    background-color: rgb(241, 237, 237);
+    border-radius: 5px;
+    padding: 5px 10px;
   }
 
   .to p {
@@ -45,17 +34,14 @@ margin-top:20px;
   }
 
   .on {
-    width: 10%;
     display: flex;
     align-items: center;
-    padding-left: 20px;
+    gap: 15px;
 
     i {
       font-size: 20px;
       cursor: pointer;
-      margin-right: 15px;
     }
-
     i:hover {
       color: rgb(247, 100, 42);
       transition: 0.4s;
@@ -64,9 +50,23 @@ margin-top:20px;
 
   .btn {
     width: 35%;
-      }
+  }
 
+  @media (max-width: 900px) {
+    .first {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 10px;
+    }
+    .on { display: none; }
+    .to p { font-size: 15px; line-height: 1.4; }
+    .btn { width: 100%; }
+  }
 `;
+
+
+// Main Content
 
 const Render=styled.div`
 margin-top:30px;
@@ -120,7 +120,7 @@ const AllProducts = () => {
   return (
     <>
       <Comb>
-        <One>{/* Sidebar content */}</One>
+        {/* <One>{/* Sidebar content /}</One> */}
 
         <Two>
           <div className="first">
