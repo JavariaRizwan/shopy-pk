@@ -106,17 +106,41 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
 
+  // useEffect(() => {
+  //   const getCategories = async () => {
+  //     try {
+  //       const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/category`);
+  //       console.log(response.data);
+  //       setCategories(response.data.categories);
+  //     } catch (error) {
+  //       toast.error("Error fetching Categories " + error.message);
+  //     }
+  //   };
+  //   getCategories();
+  // }, []);
+
   useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/category`);
-        setCategories(response.data);
-      } catch (error) {
-        toast.error("Error fetching Categories " + error.message);
+  const getCategories = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/category`);
+      console.log("category response:", response.data);
+
+      const data = response.data;
+      if (Array.isArray(data)) {
+        setCategories(data);                 // API returns a plain array
+      } else if (Array.isArray(data?.categories)) {
+        setCategories(data.categories);      // API returns { categories: [...] }
+      } else {
+        setCategories([]);                   // HTML / error / anything else
+        console.error("Unexpected category response:", data);
       }
-    };
-    getCategories();
-  }, []);
+    } catch (error) {
+      setCategories([]);
+      toast.error("Error fetching Categories " + error.message);
+    }
+  };
+  getCategories();
+}, []);
 
   return (
     <One>
