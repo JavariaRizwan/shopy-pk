@@ -7,65 +7,63 @@ import ae from "../ae.png";
 import pp from "../pp.png";
 
 
-const Last=styled.div`
-width:95%;
-margin:auto;
-font-family:"Montserrat",sans-serif;
-height:30px;
-justify-content:space-between;
+const Last = styled.div`
+  width: 95%;
+  margin: auto;
+  font-family: "Montserrat", sans-serif;
+  padding: 10px 0 20px;
 
-.on{
-width:100%;
-display:flex;
-justify-content:space-between;
-height:30px;
-font-size:14px;
-}
+  .on {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 14px;
+  }
+  .icons {
+    display: flex;
+    gap: 12px;
+  }
+  .icons i { font-size: 20px; }
+  .close {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+  }
+  .text {
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+  .images {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .images img {
+    height: 24px;
+    width: auto;
+    object-fit: contain;
+  }
 
-.icons{
-width:14%;
-display:flex;
-justify-content:space-between;
-}
-.icons i{
-font-size:20px;
+  .fb:hover  { color: blue; transition: 0.3s; }
+  .ins:hover { color: rgb(214, 65, 65); transition: 0.3s; }
+  .pin:hover { color: red; transition: 0.3s; }
+  .x:hover   { color: skyblue; transition: 0.3s; }
 
-}
-.close{
-cursor:pointer;
-align-content:center;
-justify-content:center;
-text-align:center;
-align-items:center;
-border-radius:50%;
-width:25px;
-height:25px;
-}
-.text{
-letter-spacing:0.5px;
-margin-top:0px;}
-
-.fb:hover {
-color:blue;
-transition:0.3s;
-}
-
-.ins:hover {
-color:rgb(214, 65, 65);
-transition:0.3s;
-}
-
-.pin:hover {
-color:red;;
-transition:0.3s;
-}
-
-.x:hover {
-color:skyblue;
-transition:0.3s;
-}
-
-`
+  @media (max-width: 800px) {
+    .on {
+      flex-direction: column;
+      text-align: center;
+    }
+    .text { order: 3; font-size: 12px; }
+  }
+`;
 
 export const Foot=()=>{
 
