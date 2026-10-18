@@ -9,14 +9,146 @@ import mobile from "../mobile.webp";
 import iphone from "../iphone.webp";
 import coke from "../coke.webp";
 
-const Combine=styled.div`
-font-family:"Montserrat",sans-serif;
-display:flex;
-justify-content:space-between;
-width:95%;
-height:380px;
-margin:auto;
-`
+
+const Combine = styled.div`
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  height: 380px;
+  margin: auto;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    height: auto;
+    gap: 15px;
+  }
+`;
+
+const Com = styled.div`
+  width: 95%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  font-family: "Montserrat", sans-serif;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;
+
+const Card = styled.div`
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  height: 200px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  background-image: url(${(props) => props.$bg});
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  &:nth-of-type(1) {
+    h1 { text-align: right; width: 60%; margin-left: 90px; }
+    p { text-align: right; margin-right: 20px; }
+  }
+  &:nth-of-type(2) {
+    h1 { text-align: left; }
+    p { text-align: left; }
+  }
+  &:nth-of-type(3) {
+    h1 { text-align: left; }
+  }
+  &:nth-of-type(1),
+  &:nth-of-type(4) {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  h1 {
+    font-size: 20px;
+    color: rgb(26, 20, 48);
+    margin: 0;
+  }
+  p {
+    margin-top: 10px;
+  }
+  button {
+    width: 120px;
+    height: 35px;
+    transition: 0.3s;
+    background-color: rgb(247, 100, 42);
+    color: white;
+    border: 2px solid rgb(247, 100, 42);
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: auto;
+  }
+  button:hover {
+    background-color: white;
+    color: rgb(247, 100, 42);
+  }
+
+  /* keep these LAST so they override the nth-of-type rules above */
+  @media (max-width: 900px) {
+    height: 170px;
+    &:nth-of-type(n) h1 {
+      width: 100%;
+      margin-left: 0;
+      font-size: 15px;
+    }
+    &:nth-of-type(n) p {
+      margin: 5px 0 0;
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    height: 150px;
+    padding: 8px;
+    &:nth-of-type(n) h1 { font-size: 12px; }
+    &:nth-of-type(n) p { font-size: 12px; }
+    button { width: 90px; height: 28px; font-size: 12px; border-radius: 8px; }
+  }
+`;
+
+const CardImage = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(${(props) => props.$bg});
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  transition: transform 0.3s ease;
+
+  ${(props) => props.$tilt && `
+    &:hover {
+      transform: rotate(-3deg) scale(1.05);
+    }
+  `}
+`;
+
+
+
+// const Combine=styled.div`
+// font-family:"Montserrat",sans-serif;
+// display:flex;
+// justify-content:space-between;
+// width:95%;
+// height:380px;
+// margin:auto;
+// `
 const Rit=styled.div`
 width:60%;
 border-radius:20px;
@@ -58,13 +190,29 @@ margin-bottom:10px;
 margin-top:-15px;
 
 }
-
+  @media (max-width: 800px) {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 240px;
+    padding: 15px;
+    p { margin-top: 20px; }
+    h1 { font-size: 20px; }
+  }
+  @media (max-width: 480px) {
+    min-height: 200px;
+    h1 { font-size: 16px; }
+    button { width: 120px; height: 35px; font-size: 15px; }
+  }
 `;
 const Left=styled.div`
 display:flex;
 width:35%;
 flex-direction:column;
 justify-content:space-between;
+  @media (max-width: 800px) {
+    width: 100%;
+    gap: 15px;
+  }
 `
 const On=styled.div`
 border-radius:20px;
@@ -97,6 +245,14 @@ button:hover{
 background-color:white;
 color:rgb(247, 100, 42);
 }
+
+  @media (max-width: 800px) {
+    height: auto;
+    min-height: 140px;
+    box-sizing: border-box;
+    padding: 10px 15px 15px;
+    p { margin-top: 10px; font-size: 16px; }
+  }
 `
 const To= styled.div`
 border-radius:20px;
@@ -104,6 +260,8 @@ width:100%;
 padding-right:10px;
 
 background-image:url("/bm.jpg");
+bakground-size:cover;
+background-position: center;
 text-align:right;
 p{
 margin-top:30px;
@@ -130,113 +288,121 @@ color:rgb(247, 100, 42);
 }
 height:47%;
 
-`;
-const Com=styled.div`
-width:95%;
-margin:auto;
-height:200px;
-display:flex;
-justify-content:space-between;
-font-family:"Montserrat",sans-serif;
-`;
+  @media (max-width: 800px) {
+    height: auto;
+    min-height: 140px;
+    box-sizing: border-box;
+    padding: 10px 15px 15px;
+    p { margin-top: 10px; font-size: 16px; }
+  }
 
-const Card = styled.div`
+`;
+// const Com=styled.div`
+// width:95%;
+// margin:auto;
+// height:200px;
+// display:flex;
+// justify-content:space-between;
+// font-family:"Montserrat",sans-serif;
+// `;
+
+// const Card = styled.div`
   
-position:relative;
-overflow:hidden;
-&:nth-of-type(1) {
-h1{
-text-align:right;
-font-size:20px;
-width:60%;
-margin-left:90px;
-color:rgb(26, 20, 48);}
-p{
-text-align:right;
-margin-right:20px;
-}}
+// position:relative;
+// overflow:hidden;
+// &:nth-of-type(1) {
+// h1{
+// text-align:right;
+// font-size:20px;
+// width:60%;
+// margin-left:90px;
+// color:rgb(26, 20, 48);}
+// p{
+// text-align:right;
+// margin-right:20px;
+// }}
  
-&:nth-of-type(2) { 
-h1{
-font-size:20px;
-text-align:left
-color:rgb(26, 20, 48);}
-p{
-text-align:left;
-}}
+// &:nth-of-type(2) { 
+// h1{
+// font-size:20px;
+// text-align:left
+// color:rgb(26, 20, 48);}
+// p{
+// text-align:left;
+// }}
 
-&:nth-of-type(3) {   
-h1{
-font-size:20px;
-text-align:left
-color:rgb(26, 20, 48);
-}}
- &:nth-of-type(1),
-  &:nth-of-type(4) {
-    align-items: flex-end;
-    text-align: right;
-  }
+// &:nth-of-type(3) {   
+// h1{
+// font-size:20px;
+// text-align:left
+// color:rgb(26, 20, 48);
+// }}
+//  &:nth-of-type(1),
+//   &:nth-of-type(4) {
+//     align-items: flex-end;
+//     text-align: right;
+//   }
 
-  width: 265px;
-  border: none;
-  border-radius: 5px;
-  height: 200px;
-  padding: 10px;
-  background-image: url(${props => props.bg});
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+//   width: 265px;
+//   border: none;
+//   border-radius: 5px;
+//   height: 200px;
+//   padding: 10px;
+//   background-image: url(${props => props.bg});
+//   background-size: cover;
+//   background-position: center;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-around;
 
-  h1 {
-    font-size: 20px;
-    color: rgb(26, 20, 48);
-    margin: 0;
-  }
+//   h1 {
+//     font-size: 20px;
+//     color: rgb(26, 20, 48);
+//     margin: 0;
+//   }
 
-  p {
-    margin-top: 10px
-  }
+//   p {
+//     margin-top: 10px
+//   }
 
-  button {
-    width: 120px;
-    height: 35px;
-    transition: 0.3s;
-    background-color: rgb(247, 100, 42);
-    color: white;
-    border: 2px solid rgb(247, 100, 42);
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: auto;
-  }
+//   button {
+//     width: 120px;
+//     height: 35px;
+//     transition: 0.3s;
+//     background-color: rgb(247, 100, 42);
+//     color: white;
+//     border: 2px solid rgb(247, 100, 42);
+//     border-radius: 10px;
+//     font-weight: bold;
+//     font-size: 16px;
+//     cursor: pointer;
+//     margin-top: auto;
+//   }
 
-  button:hover {
-    background-color: white;
-    color: rgb(247, 100, 42);
-  }
-`;
+//   button:hover {
+//     background-color: white;
+//     color: rgb(247, 100, 42);
+//   }
+// `;
 
-const CardImage = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;       /* fill the card */
-  height: 100%;
-  background-image: url(${props => props.bg});
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
-  transition: transform 0.3s ease;
+// const CardImage = styled.div`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;       /* fill the card */
+//   height: 100%;
+//   background-image: url(${props => props.bg});
+//   background-size: cover;
+//   background-position: center;
+//   z-index: 0;
+//   transition: transform 0.3s ease;
 
-  ${props => props.tilt && `
-    &:hover {
-      transform: rotate(-3deg) scale(1.05);
-    }
-  `}
-`;
+//   ${props => props.tilt && `
+//     &:hover {
+//       transform: rotate(-3deg) scale(1.05);
+//     }
+//   `}
+// `;
 
 
 
@@ -278,28 +444,28 @@ export const Seconds=()=>{
 return <>
 <Com>
 
-<Card bg={girl}>
+<Card $bg={girl}>
 <h1>Buy Women products with low price</h1>
 <p>Rs.999</p>
 <button>Shop now</button>
 </Card>
 
 
-<Card bg={bag}>
+<Card $bg={bag}>
 <h1>Buy Apple Iphone</h1>
 <p>Rs.45000</p>
 <button>Shop now</button>
 </Card>
 
 
-<Card bg={bm}>
+<Card $bg={bm}>
 <h1>Buy Men's bags with lowest price</h1>
 <p>Rs.900</p>
 <button>Shop now</button>
 </Card>
 
 
-<Card bg={sh}>
+<Card $bg={sh}>
 <h1>Buy Men's Footwear with low prices</h1>
 <p>Rs.1500</p>
 <button>Shop now</button>
@@ -314,10 +480,10 @@ return <>
 export const Logos = () => {
   return (
     <Com>
-      <Card><CardImage bg={fashion} tilt /></Card>
-      <Card><CardImage bg={mobile} tilt /></Card>
-      <Card><CardImage bg={coke} tilt /></Card>
-      <Card><CardImage bg={iphone} tilt /></Card>
+      <Card><CardImage $bg={fashion} $tilt /></Card>
+      <Card><CardImage $bg={mobile} $tilt /></Card>
+      <Card><CardImage $bg={coke} $tilt /></Card>
+      <Card><CardImage $bg={iphone} $tilt /></Card>
     </Com>
   );
 };
