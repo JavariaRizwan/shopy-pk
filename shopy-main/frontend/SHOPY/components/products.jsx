@@ -22,11 +22,32 @@ const Divs = styled.div`
     margin-top: -10px;
   }`
 ;
+
+// const Flex = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// `;
+
 const Flex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
 `;
+
+// const Right = styled.div`
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+//   width: 55%;
+//   overflow: visible;
+// `;
 
 const Right = styled.div`
   position: relative;
@@ -34,28 +55,68 @@ const Right = styled.div`
   align-items: center;
   width: 55%;
   overflow: visible;
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
 `;
+
+
+// const ScrollContainer = styled.div`
+//   display: flex;
+//   gap: 10px;
+//   margin:0px 15px;
+//   overflow-x: hidden;
+//   scroll-behavior: smooth;
+//   padding: 10px 0;
+//   width: 100%;
+//   &::-webkit-scrollbar {
+//     display: none;
+//   }
+// `;
 
 const ScrollContainer = styled.div`
   display: flex;
   gap: 10px;
-  margin:0px 15px;
+  margin: 0px 15px;
   overflow-x: hidden;
   scroll-behavior: smooth;
   padding: 10px 0;
   width: 100%;
-  &::-webkit-scrollbar {
-    display: none;
+  &::-webkit-scrollbar { display: none; }
+
+  @media (max-width: 768px) {
+    margin: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
 `;
 
-const Btns = styled.button`
+// const Btns = styled.button`
   
+//   padding: 10px;
+//   border-radius: 20px;
+//   border: ${(props) => (props.active ? "1px solid orange" : "1px solid gray")};
+//   background-color: white;
+//   color: ${(props) => (props.active ? "orange" : "#333")};
+//   font-weight: 500;
+//   cursor: pointer;
+//   transition: 0.1s;
+//   &:hover {
+//     border: 1px solid orange;
+//     color: orange;
+//   }
+// `;
+
+const Btns = styled.button`
   padding: 10px;
+  white-space: nowrap;
+  flex: 0 0 auto;
   border-radius: 20px;
-  border: ${(props) => (props.active ? "1px solid orange" : "1px solid gray")};
+  border: ${(props) => (props.$active ? "1px solid orange" : "1px solid gray")};
   background-color: white;
-  color: ${(props) => (props.active ? "orange" : "#333")};
+  color: ${(props) => (props.$active ? "orange" : "#333")};
   font-weight: 500;
   cursor: pointer;
   transition: 0.1s;
@@ -64,6 +125,29 @@ const Btns = styled.button`
     color: orange;
   }
 `;
+
+// const Arrow = styled.div`
+//   position: absolute;
+//   font-size: 25px;
+//   background-color: white;
+//   color: #333;
+//   padding: 5px;
+//   border-radius: 50%;
+//   cursor: pointer;
+//   z-index: 10;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   &.left {
+//     left: -25px;
+//   }
+//   &.right {
+//     right: -25px;
+//   }
+//   &:hover {
+//     background-color: #f2672a;
+//     color: white;
+//   }
+// `;
 
 const Arrow = styled.div`
   position: absolute;
@@ -76,18 +160,14 @@ const Arrow = styled.div`
   z-index: 10;
   top: 50%;
   transform: translateY(-50%);
-  &.left {
-    left: -25px;
-  }
-  &.right {
-    right: -25px;
-  }
-  &:hover {
-    background-color: #f2672a;
-    color: white;
+  &.left { left: -25px; }
+  &.right { right: -25px; }
+  &:hover { background-color: #f2672a; color: white; }
+
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
-
 const CardWrapper = styled.div`
   font-family: "Roboto", sans-serif;
   position: relative;
@@ -95,14 +175,32 @@ const CardWrapper = styled.div`
   margin: 30px auto;
 `;
 
+// const CardScroll = styled.div`
+//   display: flex;
+//   gap: 15px;
+//   overflow-x: hidden;
+//   scroll-behavior: smooth;
+//   overflow-y: visible;
+//   &::-webkit-scrollbar {
+//     display: none;
+//   }
+// `;
+
 const CardScroll = styled.div`
   display: flex;
   gap: 15px;
   overflow-x: hidden;
   scroll-behavior: smooth;
   overflow-y: visible;
-  &::-webkit-scrollbar {
-    display: none;
+  &::-webkit-scrollbar { display: none; }
+
+  @media (max-width: 768px) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    padding: 5px 2px 12px;
+    gap: 10px;
   }
 `;
 
@@ -175,6 +273,11 @@ const Cards = styled.div`
   h3:hover {
     color: rgb(253, 102, 37);
   }
+
+    @media (max-width: 600px) {
+    width: 150px;
+    scroll-snap-align: start;
+  }
 `;
 
 const Nav=styled(NavLink)`
@@ -236,6 +339,10 @@ const All = styled.div`
   button:hover i {
     margin-left: 10px;
     transition: 0.3s;
+  }
+  @media (max-width: 600px) {
+    h1 { font-size: 20px; }
+    align-items: center;
   }
 `;
 
@@ -311,19 +418,22 @@ const filteredProducts =
             </Arrow>
 
             <ScrollContainer ref={categoryScrollRef}>
-  <Btns active={active === "All"} onClick={() => setActive("All")}>
+  {/* <Btns active={active === "All"} onClick={() => setActive("All")}>
     All
-  </Btns>
+  </Btns> */}
+       <Btns $active={active === "All"} onClick={() => setActive("All")}>
+  All
+</Btns>
 
-              {categories.map((cat) => (
-                <Btns
-                  key={cat._id}
-                  active={active === cat._id}
-                  onClick={() => setActive(cat._id)}
-                >
-                  {cat.c_name}
-                </Btns>
-              ))}
+{categories.map((cat) => (
+  <Btns
+    key={cat._id}
+    $active={active === cat._id}
+    onClick={() => setActive(cat._id)}
+  >
+    {cat.c_name}
+  </Btns>
+))}
             </ScrollContainer>
 
             <Arrow
